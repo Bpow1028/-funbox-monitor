@@ -30,7 +30,7 @@ def send_notification(title, message, link):
         NTFY_URL,
         data=message.encode("utf-8"),
         headers={
-            "Title": title,
+            "Title":"Funbox Monitor",
             "Priority": "high",
             "Tags": "bell",
             "Click": link,
