@@ -73,7 +73,7 @@ def main():
     previous = load_seen()
 
     # 第一次執行只建立基準
-    if previous is None:
+    if previous is None or len(previous) == 0:
         save_seen(current)
 
         send_notification(
