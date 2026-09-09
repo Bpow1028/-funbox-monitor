@@ -43,33 +43,50 @@ def send_notification(title, message, link):
 
 
 def get_products():
-    response = requests.get(HOME_URL, headers=HEADERS, timeout=30)
-    response.raise_for_status()
+    product_urls = [
+        "https://mmtoyshop.com/item/Shopee6a3bdc2987154",
+        "https://mmtoyshop.com/item/Shopee6a3c8d32c819b",
+        "https://mmtoyshop.com/item/Shopee6a3bdb8f6b386",
+        "https://mmtoyshop.com/item/shopee6a3bdbb22415e",
+        "https://mmtoyshop.com/item/shopee6a3bdb4fe2bcb",
+    ]
 
-    soup = BeautifulSoup(response.text, "html.parser")
     products = {}
 
-    for tag in soup.find_all("a", href=True):
-        text = " ".join(tag.stripped_strings).strip()
-        href = tag.get("href", "")
+    for url in product_urls:
+        try:
+            response = requests.get(url, headers=HEADERS, timeout=30)
+            response.raise_for_status()
 
-        if not text:
-            continue
+            soup = BeautifulSoup(response.text, "html.parser")
+            text = " ".join(soup.stripped_strings)
 
-        if not any(k.lower() in text.lower() for k in KEYWORDS):
-            continue
+            match = re.search(
+                r"(?:BX|UX|CX)-\d+[^\n]{0,120}",
+                text,
+                re.IGNORECASE
+            )
 
-        full_url = urljoin(BASE_URL, href)
+            if not match:
+                continue
 
-        if "/item/" not in full_url:
-            continue
+            name = re.sub(r"\s+", " ", match.group(0)).strip()
 
-        text = re.sub(r"\s+", " ", text)
+            price_match = re.search(r"NT\$\s*[\d,]+", text)
+            price = price_match.group(0) if price_match else "價格未取得"
 
-        products[full_url] = {
-            "name": text,
-            "url": full_url,
-        }
+            stock_match = re.search(r"商品庫存[:：]\s*(\d+)", text)
+            stock = stock_match.group(1) if stock_match else "未知"
+
+            products[url] = {
+                "name": name,
+                "price": price,
+                "stock": stock,
+                "url": url,
+            }
+
+        except Exception as e:
+            print("讀取商品失敗：", url, e)
 
     return products
 
