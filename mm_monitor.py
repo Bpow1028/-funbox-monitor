@@ -41,15 +41,20 @@ def send_notification(title, message, link):
     )
     response.raise_for_status()
 
-
 def get_products():
-    product_urls = [
-        "https://mmtoyshop.com/item/Shopee6a3bdc2987154",
-        "https://mmtoyshop.com/item/Shopee6a3c8d32c819b",
-        "https://mmtoyshop.com/item/Shopee6a3bdb8f6b386",
-        "https://mmtoyshop.com/item/shopee6a3bdbb22415e",
-        "https://mmtoyshop.com/item/shopee6a3bdb4fe2bcb",
-    ]
+product_urls = [
+    "https://mmtoyshop.com/item/Shopee6a3bdc2987154",
+    "https://mmtoyshop.com/item/Shopee6a3c8d32c819b",
+    "https://mmtoyshop.com/item/Shopee6a3bdb8f6b386",
+    "https://mmtoyshop.com/item/shopee6a3bdbb22415e",
+    "https://mmtoyshop.com/item/shopee6a3bdb4fe2bcb",
+    "https://mmtoyshop.com/item/Shopee6a3bdd0e115bf",
+    "https://mmtoyshop.com/item/shopee6a3bdc09bb86a",
+    "https://mmtoyshop.com/item/Shopee6a3bdbf9a7679",
+    "https://mmtoyshop.com/item/shopee6a3bdc1b2db19",
+    "https://mmtoyshop.com/item/shopee6a3bdba399773",
+]
+    
 
     products = {}
 
