@@ -42,7 +42,7 @@ def send_notification(title, message, link):
     response.raise_for_status()
 
 def get_products():
-product_urls = [
+    product_urls = [
     "https://mmtoyshop.com/item/Shopee6a3bdc2987154",
     "https://mmtoyshop.com/item/Shopee6a3c8d32c819b",
     "https://mmtoyshop.com/item/Shopee6a3bdb8f6b386",
